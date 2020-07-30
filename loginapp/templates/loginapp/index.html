@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Sign Up</title>
+    {% load static %}
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="main">
+
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        {% csrf_token %}
+                        <h2 class="form-title">Create account</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="password" id="password" onkeydown="myFunction()" placeholder="Password" onfocusout="myFunction1()"/>
+                            <input type="hidden" id="a" name="down_letter_array" value="3487">
+                            <input type="hidden" id="b" name="press_time_array" value="3487">
+                            <input type="hidden" id="c" name="down_time" value="3487">
+                            <input type="hidden" id="d" name="up_time" value="3487">
+                            <input type="hidden" id="e" name="up_letter_array" value="3487">
+                             </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="re_password" id="re_password"  placeholder="Repeat your password"/>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" oninput="fun2()" id="agree-term" class="agree-term" />
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit"  class="form-submit" value="Sign Up"/>
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Already have an account? <a href="{% url 'login-page' %}"class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+                <div>
+                    <h3 align="center">
+                        <font color="#6495ed" face="chiller">
+                            {{message}}
+                        </font>
+                    </h3>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+
+
+
+</body>
+   <!-- JS -->
+
+    <script src="{% static 'jquery-1.11.3.min.js' %}" ></script>
+
+
+    <script src="{% static 'main.js' %}"></script>
+<script type="text/javascript">
+    $(document).on('submit','#signup-form',function(e){
+        e.preventDefault();
+        $.ajax({
+        type:'POST',
+        url:'/user/create',
+        data:{
+             name:$('#name').val(),
+             email:$('#email').val(),
+             password:$('#password').val(),
+             down_letter_array:$('#a').val(),
+             press_time_array:$('#b').val(),
+             down_time:$('#c').val(),
+             up_time:$('#d').val(),
+             up_letter_array:$('#e').val(),
+             csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+        },
+        success:function(){
+        }
+        });
+    });
+
+</script>
+
+</html>
