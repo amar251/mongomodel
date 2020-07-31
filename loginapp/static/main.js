@@ -71,6 +71,15 @@ document.onkeyup = function(e) {
    document.getElementById('e').setAttribute('value', up_letter_array.toString());
 
    }
+   function fun3(){
+        var p=document.getElementById('password').value;
+        var p1=document.getElementById('re_password').value;
+        var output=document.getElementById('output');
+        var n = p.localeCompare(p1);
+        if(n!=0){
+        output.innerHTML = '<p> password not matching </p>';
+        }
+   }
 
 
 

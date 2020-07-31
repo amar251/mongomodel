@@ -31,6 +31,7 @@
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-input" name="password" id="password" onkeydown="myFunction()" placeholder="Password" onfocusout="myFunction1()"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                             <input type="hidden" id="a" name="down_letter_array" value="3487">
                             <input type="hidden" id="b" name="press_time_array" value="3487">
                             <input type="hidden" id="c" name="down_time" value="3487">
@@ -38,8 +39,8 @@
                             <input type="hidden" id="e" name="up_letter_array" value="3487">
                              </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="re_password" id="re_password"  placeholder="Repeat your password"/>
-
+                            <input type="password" class="form-input" name="re_password" id="re_password"  onfocusin="fun3()" placeholder="Repeat your password"/>
+                            <div id="output"></div>
                         </div>
                         <div class="form-group">
                             <input type="checkbox" name="agree-term" oninput="fun2()" id="agree-term" class="agree-term" />
@@ -95,6 +96,7 @@
 
         },
         success:function(){
+         alert("Submission successfull!! ");
         }
         });
     });
