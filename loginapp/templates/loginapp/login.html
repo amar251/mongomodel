@@ -21,17 +21,33 @@
                 <div class="signup-content">
                     <form method="POST" id="signup-form" class="signup-form">
                          {% csrf_token %}
-                        <h2 class="form-title">Login</h2>
+                        <h2 class="form-title">Login {{prediction}}</h2>
                         <div class="form-group">
                             <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-input" name="password" id="password" onkeydown="myFunction()" placeholder="Password" onfocusout="myFunction1()"/>
-                            </div>
+                            <input type="hidden" id="a" name="down_letter_array" value="3487">
+                            <input type="hidden" id="b" name="press_time_array" value="3487">
+                            <input type="hidden" id="c" name="down_time" value="3487">
+                            <input type="hidden" id="d" name="up_time" value="3487">
+                            <input type="hidden" id="e" name="up_letter_array" value="3487">
+                        </div>
                         <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="LOGIN"/>
                         </div>
                     </form>
+
+                    {% if messages %}
+                    {% for message in messages %}
+                        <h3 align="center">
+                        <font color=red face="arial">
+                           {{ message }}
+                        </font>
+                    </h3>
+                    {% endfor %}
+                    {% endif %}
+
                     <p class="loginhere">
                         Don't have an account? <a href="{% url 'index-page' %}" class="loginhere-link">Register here</a>
                     </p>

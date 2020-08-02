@@ -13,16 +13,16 @@
     <!-- Main css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
+<body >
 
     <div class="main">
 
         <section class="signup">
             <div class="container">
                 <div class="signup-content">
-                    <form method="POST" id="signup-form" class="signup-form">
+                    <form method="POST" id="signup-form" class="signup-form" action="user/create">
                         {% csrf_token %}
-                        <h2 class="form-title">Create account</h2>
+                        <h2 class="form-title">Create account </h2>
                         <div class="form-group">
                             <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
                         </div>
@@ -39,15 +39,15 @@
                             <input type="hidden" id="e" name="up_letter_array" value="3487">
                              </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="re_password" id="re_password"  onfocusin="fun3()" placeholder="Repeat your password"/>
-                            <div id="output"></div>
+                            <input type="password" class="form-input" name="re_password" id="re_password"   placeholder="Repeat your password"/>
+                               <span id='message'></span>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" name="agree-term" oninput="fun2()" id="agree-term" class="agree-term" />
+                            <input type="checkbox" name="agree-term"  id="agree-term" class="agree-term" />
                             <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="submit" id="submit"  class="form-submit" value="Sign Up"/>
+                            <input type="submit" name="submit" id="submit"  class="form-submit" value="Sign Up" onclick="if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}"/>
                         </div>
                     </form>
                     <p class="loginhere">
@@ -57,7 +57,7 @@
                 <div>
                     <h3 align="center">
                         <font color="#6495ed" face="chiller">
-                            {{message}}
+                            {{prediction}}
                         </font>
                     </h3>
                 </div>
@@ -96,7 +96,8 @@
 
         },
         success:function(){
-         alert("Submission successfull!! ");
+         alert("Signed up successfully!! ");
+         window.location.reload();
         }
         });
     });

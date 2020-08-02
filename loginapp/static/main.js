@@ -25,24 +25,37 @@ function myFunction()
         pressed = {};
   document.onkeydown = function(e) {
   if(e.repeat) return;
-    if ( pressed[e.which] ) return;
-    pressed[e.which] = e.timeStamp;
-    down_time.push(e.timeStamp);
-    down_letter_array.push(e.key);
+   const currentCode = e.which || e.code;
+    let currentKey = e.key;
+     if (!currentKey) {
+    currentKey = String.fromCharCode(currentCode);
+  }
+    if ( pressed[currentKey] ) return;
+    pressed[currentKey] = e.timeStamp;
+    down_time.push(e.timeStamp/1000);
+    down_letter_array.push(currentKey);
+    document.getElementById('c').setAttribute('value', down_time.toString());
+    document.getElementById('a').setAttribute('value', down_letter_array.toString());
 
 
 };
 
 document.onkeyup = function(e) {
-    if ( !pressed[e.which] ) return;
-    var duration = ( e.timeStamp - pressed[e.which] ) / 1000;
+      const currentCode = e.which || e.code;
+    let currentKey = e.key;
+     if (!currentKey) {
+    currentKey = String.fromCharCode(currentCode);
+   }
 
+    if ( !pressed[currentKey] ) return;
+    var duration = ( e.timeStamp - pressed[currentKey] ) / 1000;
 
-
-    pressed[down_letter_array.length] = b;
-    up_time.push(e.timeStamp);
+    up_time.push(e.timeStamp/1000);
     press_time_array.push(duration);
     up_letter_array.push(e.key);
+   document.getElementById('d').setAttribute('value', up_time.toString());
+   document.getElementById('e').setAttribute('value', up_letter_array.toString());
+   document.getElementById('b').setAttribute('value', press_time_array.toString());
 
 };}
 
@@ -56,30 +69,20 @@ function myFunction1()
     };
 
 document.onkeyup = function(e) {
-    if ( !pressed[e.which] ) return;
+    if ( !pressed1[e.which] ) return;
     var duration = ( e.timeStamp - pressed[e.which] ) / 1000;
 
 
 };}
 
+$('#password, #re_password').on('keyup', function () {
+  if ($('#password').val() == $('#re_password').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else
+    $('#message').html('Not Matching').css('color', 'red');
+});
 
-  function fun2(){
-   document.getElementById('a').setAttribute('value', down_letter_array.toString());
-   document.getElementById('b').setAttribute('value', press_time_array.toString());
-   document.getElementById('c').setAttribute('value', down_time.toString());
-   document.getElementById('d').setAttribute('value', up_time.toString());
-   document.getElementById('e').setAttribute('value', up_letter_array.toString());
 
-   }
-   function fun3(){
-        var p=document.getElementById('password').value;
-        var p1=document.getElementById('re_password').value;
-        var output=document.getElementById('output');
-        var n = p.localeCompare(p1);
-        if(n!=0){
-        output.innerHTML = '<p> password not matching </p>';
-        }
-   }
 
 
 
