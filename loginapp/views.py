@@ -5,10 +5,9 @@ from django.http import HttpResponse
 # Create your views here.
 from django.template import RequestContext
 import joblib
-from .models import MyModel
+from .models import MyModel,key_table
 import pandas as pd
-dict = collections.defaultdict(lambda : 'Key Not found')
-dict1 = collections.defaultdict(lambda : 'Key Not found')
+
 classifier_model=joblib.load('./model/net.joblib')
 train_mode=joblib.load('./model/train_mode.joblib')
 def string_parser(s):
@@ -78,17 +77,28 @@ def login(request):
         press_time_array = request.POST.get('press_time_array')
         up_time = request.POST.get('up_time')
         email = request.POST.get('email')
+        password = request.POST.get('password')
         test_data = preprocessing(input_dict(up_time, press_time_array))
         login_prediction = classifier_model.predict(test_data)[0]
 
-        print(dict[email])
-        if(dict[email]!='Key Not found' and dict1[email]!='Key Not found'):
-            if (dict[email]==login_prediction):
-                context = {'prediction': dict[email]}
+
+        s = key_table.objects.filter(email=email).first()
+
+        if(s!=None and s.email!=""):
+            print(s)
+
+            print(s.password)
+            if(s.password==password and s.key==login_prediction):
+                print(login_prediction)
+                print(password)
+                context = {'prediction': s.key}
                 messages.info(request, 'Your are now logged in!')
                 return render(request,'loginapp/login.html',context)
-            else:
-                messages.info(request, 'Incorrect username or password entered!')
+            elif (s.password==password and s.key!=login_prediction):
+                messages.info(request, 'Typing mismatch!')
+                return render(request, 'loginapp/login.html')
+            else :
+                messages.info(request, 'Incorrect Email or Password!')
                 return render(request, 'loginapp/login.html')
         else:
             messages.info(request, 'Your have not been registered!')
@@ -121,13 +131,26 @@ def create_user(request):
             up_letter_array = up_letter_array
 
         )
+
         ref.save()
         test_data = preprocessing(input_dict(up_time, press_time_array))
         prediction = classifier_model.predict(test_data)[0]
-        dict[email]=prediction
-        dict1[email] = prediction
-        context = {'prediction': prediction}
+        ref1 = key_table.objects.create(
+            name=name,
+            email=email,
+            password=password,
+            down_letter_array=down_letter_array,
+            press_time_array=press_time_array,
+            down_time=down_time,
+            up_time=up_time,
+            up_letter_array=up_letter_array,
+            key =prediction
+
+        )
+        ref1.save()
         print(prediction)
-        print(dict)
+
+
+        context = {'prediction': prediction}
         return render(request,'loginapp/login.html',context)
 

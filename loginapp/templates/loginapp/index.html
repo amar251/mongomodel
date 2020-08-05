@@ -12,6 +12,7 @@
 
     <!-- Main css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body >
 
@@ -24,11 +25,65 @@
                         {% csrf_token %}
                         <h2 class="form-title">Create account </h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                            <label for="name"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="text" class="form-input" name="name" id="name"  placeholder="Your Name"/>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <input type="email" class="form-input" name="email" id="email"   placeholder="Your Email"/>
                         </div>
+                        <div class="form-group">
+                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" class="form-input"  name="address" placeholder="13B Bakers Street">
+                        </div>
+                        <div class="form-group">
+                             <label for="city"><i class="fa fa-institution"></i> City</label>
+            <input type="text" id="city" class="form-input"  name="city" placeholder="New Delhi">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select name="c" id="country" class="form-input" >
+                                <option>--Select Country--</option>
+                                <option>India</option>
+                                <option>USA</option>
+                                <option>Canada</option>
+                                <option>Japan</option>
+                                <option>UK</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">Hint Question*
+                            <select name="c" id="hintQ" class="form-input" >
+                                <option value=""> <font color="grey">--Select Hint Question--</font></option>
+                                <option value="">What is your birthplace?</option>
+                                <option value="">What is your favorite dish?</option>
+                                <option value="">Who is your favorite person?</option>
+                                <option value="">Where did you meet your spouse?</option>
+                              </select>
+                             </div>
+                            <div class="form-group">Hint Answer*
+                                <input type="text" class="form-input" />
+                                 </div>
+                            <div class="form-group">
+                            Date of Birth *<input type="date" class="form-input" id="BirthDate" title="Select First Date" name="birthdate" >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="number" class="form-input" name="mob" id="num">
+                        </div>
+                        <div class="form-group">
+                            <label for="ccnum">Credit/Debit card number</label>
+            <input type="text" id="ccnum" class="form-input" name="cardnumber" placeholder="xxxx-xxxx-xxxx-xxxx">
+                        </div>
+                        <div class="form-group">
+                        <label for="expyear">Exp Date</label>
+                <input type="text" id="expyear" class="form-input" name="expyear" placeholder="09/24">
+
+                        </div>
+
                         <div class="form-group">
                             <input type="text" class="form-input" name="password" id="password" onkeydown="myFunction()" placeholder="Password" onfocusout="myFunction1()"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
@@ -63,6 +118,7 @@
                 </div>
 
             </div>
+
         </section>
 
     </div>
@@ -77,8 +133,11 @@
 
 
     <script src="{% static 'main.js' %}"></script>
+
 <script type="text/javascript">
     $(document).on('submit','#signup-form',function(e){
+    if (($('#name').val() != "") && ($('#email').val() != "")  && ($('#password').val() != "") ){
+
         e.preventDefault();
         $.ajax({
         type:'POST',
@@ -99,7 +158,33 @@
          alert("Signed up successfully!! ");
          window.location.reload();
         }
+        });}
+     else{
+
+        e.preventDefault();
+        $.ajax({
+        type:'POST',
+        url:'/user/create',
+        data:{
+             name:$('#name').val(),
+             email:$('#email').val(),
+             password:$('#password').val(),
+             down_letter_array:$('#a').val(),
+             press_time_array:$('#b').val(),
+             down_time:$('#c').val(),
+             up_time:$('#d').val(),
+             up_letter_array:$('#e').val(),
+             csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+        },
+        success:function(){
+         alert("Some fields are missing!! ");
+
+        }
         });
+
+     }
+
     });
 
 </script>

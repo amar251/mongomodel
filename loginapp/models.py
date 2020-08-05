@@ -12,7 +12,13 @@ class MyModel(models.Model):
     up_letter_array= models.TextField()
 
     def __str__(self):
-        return self.name
+        return self.email
+class key_table(MyModel):
+    key=models.IntegerField()
+
+    def __str__(self):
+        return str(self.email)
+
 
 
 
