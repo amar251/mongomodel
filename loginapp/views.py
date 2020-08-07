@@ -85,23 +85,21 @@ def login(request):
         s = key_table.objects.filter(email=email).first()
         s1=re_password_key_table.objects.filter(email=email).first()
         if((s!=None and s.email!="") and(s1!=None and s1.email!="")):
-            print(s)
-
-            print(s.password)
-            if(s.password==password and (s.key==login_prediction or s1.re_key==login_prediction)):
-                print(login_prediction)
-                print(password)
-                context = {'prediction': s.key}
-                messages.info(request, 'Your are now logged in!')
-                return render(request,'loginapp/login.html',context)
-            elif (s.password==password and (s.key!=login_prediction and s1.re_key==login_prediction )):
-                messages.info(request, 'Typing mismatch!')
-                return render(request, 'loginapp/login.html')
-            else :
+            if(s.password==password):
+                if (s.key==login_prediction or s1.re_key==login_prediction):
+                  print(login_prediction)
+                  print(password)
+                  context = {'prediction': s.key}
+                  messages.info(request, 'Your are now logged in!')
+                  return render(request,'loginapp/login.html',context)
+                else:
+                  messages.info(request, 'Typing mismatch!')
+                  return render(request, 'loginapp/login.html')
+            else:
                 messages.info(request, 'Incorrect Email or Password!')
                 return render(request, 'loginapp/login.html')
         else:
-            messages.info(request, 'Your have not been registered!')
+            messages.info(request, 'You have not been registered!')
             return render(request, 'loginapp/login.html')
             #return render_to_response('loginapp/login.html', message='Your have not been registered!')
     else:
