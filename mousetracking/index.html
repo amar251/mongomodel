@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onmousemove="myfunction(event)" onmouseout="clearCoor()" >
+
+    <div class="main">
+
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        <h2 class="form-title">Create account <p id="demo"></p></h2>
+                        <div class="form-group">
+                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="text" class="form-input" name="name" id="name"  placeholder="Your Name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <input type="email" class="form-input" name="email" id="email"   placeholder="Your Email"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" class="form-input"  name="address" placeholder="13B Bakers Street">
+                        </div>
+                        <div class="form-group">
+                             <label for="city"><i class="fa fa-institution"></i> City</label>
+            <input type="text" id="city" class="form-input"  name="city" placeholder="New Delhi">
+                        </div>
+                        <div class="form-group">Hint Question*
+                            <select name="c" id="hintQ" class="form-input" >
+                                <option value=""> <font color="grey">--Select Hint Question--</font></option>
+                                <option value="">What is your birthplace?</option>
+                                <option value="">What is your favorite dish?</option>
+                                <option value="">Who is your favorite person?</option>
+                                <option value="">Where did you meet your spouse?</option>
+                              </select>
+                             </div>
+                            <div class="form-group">Hint Answer*
+                                <input type="text" class="form-input" />
+                                 </div>
+                            <div class="form-group">
+                            Date of Birth *<input type="date" class="form-input" id="BirthDate" title="Select First Date" name="birthdate" required="" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label>Place of Birth *</label>
+                            <input type="text" class="form-input" onkeydown="myFunction()"  onfocusout="myFunction1()"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select name="c" id="name" class="form-input" onkeydown="myFunction()" onfocusout="myFunction1()">
+                                <option>--Select Country--</option>
+                                <option>India</option>
+                                <option>USA</option>
+                                <option>Canada</option>
+                                <option>Japan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="number" class="form-input" name="mob" id="num">
+                        </div>
+                        <div class="form-group">
+                            <label for="ccnum">Credit/Debit card number</label>
+            <input type="text" id="ccnum" class="form-input" name="cardnumber" placeholder="xxxx-xxxx-xxxx-xxxx">
+                        </div>
+                        <div class="form-group">
+                        <label for="expyear">Exp Date</label>
+                <input type="text" id="expyear" class="form-input" name="expyear" placeholder="09/24"> 
+
+                        </div>
+                        
+                         <div class="form-group">
+                            <input type="text" class="form-input" name="password" id="password" onkeydown="myFunction()" placeholder="Password" onfocusout="myFunction1()"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <input type="hidden" id="a" name="down_letter_array" value="3487">
+                            <input type="hidden" id="b" name="press_time_array" value="3487">
+                            <input type="hidden" id="c" name="down_time" value="3487">
+                            <input type="hidden" id="d" name="up_time" value="3487">
+                            <input type="hidden" id="e" name="up_letter_array" value="3487">
+                             </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="re_password" id="re_password" onkeydown="re_Function()" onfocusout="myFunction1()" placeholder="Repeat your password"/>
+                               
+                            <input type="hidden" id="f" name="re_up_time" value="3487">
+                            <input type="hidden" id="g" name="re_press_time_array" value="3487">
+                            <span id='message'></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up" onclick="if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}"/>
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Already have an account? <a href="C:\Users\amara\OneDrive\Desktop\typingdna\drive-download-20200710T135055Z-001\login.html" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/main.js"></script>
+    
+
+</body>
+<script>
+  
+    $('#BirthDate').datetimepicker({
+      yearOffset:0,
+      lang:'ch',
+      timepicker:false,
+      format:'d/m/Y',
+      formatDate:'Y/m/d',
+      minDate:'2020/05/16', // yesterday is minimum date
+      maxDate:'2030/01/01' // and tommorow is maximum date calendar
+    });
+</script>    
+
+
+<script type="text/javascript">
+    $(document).on('submit','#signup-form',function(e){
+        e.preventDefault();
+        $.ajax({
+        type:'POST',
+        url:'/user/create',
+        data:{
+             name:$('#name').val(),
+             email:$('#email').val(),
+             password:$('#password').val(),
+
+             down_letter_array:$('#a').val(),
+             press_time_array:$('#b').val(),
+             down_time:$('#c').val(),
+             up_time:$('#d').val(),
+             up_letter_array:$('#e').val(),
+             csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+        },
+        success:function(){
+
+        }
+        });
+    });
+
+</script>
+

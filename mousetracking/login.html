@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login in</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="main">
+
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        <h2 class="form-title">Login</h2>
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                        </div>
+                       
+                           <div class="form-group">
+                            <input type="text" class="form-input" name="password" id="password" onkeydown="myFunction()" placeholder="Password" onfocusout="myFunction1()"/>
+                            <input type="hidden" id="a" name="down_letter_array" value="3487">
+                            <input type="hidden" id="b" name="press_time_array" value="3487">
+                            <input type="hidden" id="c" name="down_time" value="3487">
+                            <input type="hidden" id="d" name="up_time" value="3487">
+                            <input type="hidden" id="e" name="up_letter_array" value="3487">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit"  onclick="fun2() " name="submit" id="submit" class="form-submit" value="Sign up"/>
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Don't have an account? <a href="C:\Users\amara\OneDrive\Desktop\typingdna\drive-download-20200710T135055Z-001\index.html" class="loginhere-link">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
