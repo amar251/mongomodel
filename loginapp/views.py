@@ -5,7 +5,7 @@ from django.http import HttpResponse
 # Create your views here.
 from django.template import RequestContext
 import joblib
-from .models import MyModel,key_table
+from .models import MyModel,key_table,re_password_key_table
 import pandas as pd
 
 classifier_model=joblib.load('./model/net.joblib')
@@ -83,18 +83,18 @@ def login(request):
 
 
         s = key_table.objects.filter(email=email).first()
-
-        if(s!=None and s.email!=""):
+        s1=re_password_key_table.objects.filter(email=email).first()
+        if((s!=None and s.email!="") and(s1!=None and s1.email!="")):
             print(s)
 
             print(s.password)
-            if(s.password==password and s.key==login_prediction):
+            if(s.password==password and (s.key==login_prediction or s1.re_key==login_prediction)):
                 print(login_prediction)
                 print(password)
                 context = {'prediction': s.key}
                 messages.info(request, 'Your are now logged in!')
                 return render(request,'loginapp/login.html',context)
-            elif (s.password==password and s.key!=login_prediction):
+            elif (s.password==password and (s.key!=login_prediction and s1.re_key==login_prediction )):
                 messages.info(request, 'Typing mismatch!')
                 return render(request, 'loginapp/login.html')
             else :
@@ -118,6 +118,8 @@ def create_user(request):
         down_time = request.POST.get('down_time')
         up_time = request.POST.get('up_time')
         up_letter_array = request.POST.get('up_letter_array')
+        re_up_time = request.POST.get('up_time')
+        re_press_time_array = request.POST.get('press_time_array')
 
 
         ref=MyModel.objects.create(
@@ -148,9 +150,27 @@ def create_user(request):
 
         )
         ref1.save()
+        re_test_data = preprocessing(input_dict(re_up_time, re_press_time_array))
+        re_prediction = classifier_model.predict(re_test_data)[0]
+
+        ref2 = re_password_key_table.objects.create(
+            name=name,
+            email=email,
+            password=password,
+            down_letter_array=down_letter_array,
+            press_time_array=press_time_array,
+            down_time=down_time,
+            up_time=up_time,
+            up_letter_array=up_letter_array,
+            re_key=re_prediction
+
+        )
+        ref2.save()
+
         print(prediction)
+        print(re_prediction)
 
 
         context = {'prediction': prediction}
-        return render(request,'loginapp/login.html',context)
+        return render(request,'loginapp/index.html',context)
 

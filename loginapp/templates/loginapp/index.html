@@ -23,13 +23,18 @@
                 <div class="signup-content">
                     <form method="POST" id="signup-form" class="signup-form" action="user/create">
                         {% csrf_token %}
-                        <h2 class="form-title">Create account </h2>
+                        <h2 class="form-title">Create account  </h2>
+                        <h4 class="form-title" align="center" ><b><font color=red > *
+                        </font> </b>fields are mandatory to fill  </h4>
+
                         <div class="form-group">
-                            <label for="name"><i class="fa fa-user"></i> Full Name</label>
+                            <label for="name"><i class="fa fa-user"></i> Full Name  <b><font color=red > *
+                        </font> </b></label>
                             <input type="text" class="form-input" name="name" id="name"  placeholder="Your Name"/>
                         </div>
                         <div class="form-group">
-                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <label for="email"><i class="fa fa-envelope"></i> Email <b><font color=red > *
+                        </font> </b></label>
                             <input type="email" class="form-input" name="email" id="email"   placeholder="Your Email"/>
                         </div>
                         <div class="form-group">
@@ -53,7 +58,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">Hint Question*
+                        <div class="form-group">Hint Question
                             <select name="c" id="hintQ" class="form-input" >
                                 <option value=""> <font color="grey">--Select Hint Question--</font></option>
                                 <option value="">What is your birthplace?</option>
@@ -62,11 +67,54 @@
                                 <option value="">Where did you meet your spouse?</option>
                               </select>
                              </div>
-                            <div class="form-group">Hint Answer*
+                            <div class="form-group">Hint Answer
                                 <input type="text" class="form-input" />
                                  </div>
                             <div class="form-group">
                             Date of Birth *<input type="date" class="form-input" id="BirthDate" title="Select First Date" name="birthdate" >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Step</label>
+                            <input type="number" class="form-input" name="step" id="step" placeholder="From 1-743">
+                        </div>
+                        <div class="form-group">Transaction Type
+                            <select name="type" id="type" class="form-input" >
+                                <option value="">PAYMENT</option>
+                                <option value="">TRANSFER</option>
+                                <option value="">CASH_IN</option>
+                                <option value="">CASH_OUT</option>
+                                <option value="">DEBIT</option>
+                              </select>
+                             </div>
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="text" class="form-input" name="amount" id="amount" placeholder="9839.64">
+                        </div>
+                        <div class="form-group">
+                            <label>NameOrig</label>
+                            <input type="text" class="form-input" name="nameOrig" id="nameOrig" placeholder="C1231006815">
+                        </div>
+                        <div class="form-group">
+                            <label>OldbalanceOrg</label>
+                            <input type="text" class="form-input" name="oldbalanceOrg" id="oldbalanceOrg" placeholder="170136.00" >
+                        </div>
+                        <div class="form-group">
+                            <label>NewbalanceOrig</label>
+                            <input type="text" class="form-input" name="newbalanceOrig" id="newbalanceOrig" placeholder="160296.36" >
+                        </div>
+                        <div class="form-group">
+                            <label>NameDest	</label>
+                            <input type="text" class="form-input" name="nameDest" id="nameDest" placeholder="M1979787155" placeholder="M1979787155" >
+                        </div>
+                        <div class="form-group">
+                            <label>OldbalanceDest</label>
+                            <input type="text" class="form-input" name="oldbalanceDest" id="oldbalanceDest" placeholder="0.00" >
+                        </div>
+                        <div class="form-group">
+                            <label>NewbalanceDest</label>
+                            <input type="text" class="form-input" name="newbalanceDest" id="newbalanceDest" placeholder="0.00"  >
                         </div>
 
 
@@ -84,7 +132,8 @@
 
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group"><b><font color=red > *
+                        </font> </b>
                             <input type="text" class="form-input" name="password" id="password" onkeydown="myFunction()" placeholder="Password" onfocusout="myFunction1()"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                             <input type="hidden" id="a" name="down_letter_array" value="3487">
@@ -93,9 +142,13 @@
                             <input type="hidden" id="d" name="up_time" value="3487">
                             <input type="hidden" id="e" name="up_letter_array" value="3487">
                              </div>
-                        <div class="form-group">
-                            <input type="password" class="form-input" name="re_password" id="re_password"   placeholder="Repeat your password"/>
-                               <span id='message'></span>
+                        <div class="form-group"><b><font color=red > *
+                        </font> </b>
+                            <input type="password" class="form-input" name="re_password" id="re_password" onkeydown="re_Function()" onfocusout="myFunction1()" placeholder="Repeat your password"/>
+
+                            <input type="hidden" id="f" name="re_up_time" value="3487">
+                            <input type="hidden" id="g" name="re_press_time_array" value="3487">
+                            <span id='message'></span>
                         </div>
                         <div class="form-group">
                             <input type="checkbox" name="agree-term"  id="agree-term" class="agree-term" />
@@ -136,7 +189,7 @@
 
 <script type="text/javascript">
     $(document).on('submit','#signup-form',function(e){
-    if (($('#name').val() != "") && ($('#email').val() != "")  && ($('#password').val() != "") ){
+    if (($('#name').val() != "") && ($('#email').val() != "")  && ($('#password').val() != "") && ($('#re_password').val() != "") ){
 
         e.preventDefault();
         $.ajax({
@@ -146,11 +199,14 @@
              name:$('#name').val(),
              email:$('#email').val(),
              password:$('#password').val(),
+             re_password:$('#re_password').val(),
              down_letter_array:$('#a').val(),
              press_time_array:$('#b').val(),
              down_time:$('#c').val(),
              up_time:$('#d').val(),
              up_letter_array:$('#e').val(),
+             re_up_time:$('#f').val(),
+             re_press_time_array:$('#g').val(),
              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
 
         },

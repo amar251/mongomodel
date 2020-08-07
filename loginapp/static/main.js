@@ -3,6 +3,8 @@ var up_letter_array=[];
 var press_time_array=[];
 var down_time=[]; <!-- array storing the time of key pressed which can later be used to calculate the hold time in between -->
 var up_time=[];
+var re_press_time_array=[];
+var re_up_time=[];
 (function($) {
 
     $(".toggle-password").click(function() {
@@ -81,6 +83,40 @@ $('#password, #re_password').on('keyup', function () {
   } else
     $('#message').html('Not Matching').css('color', 'red');
 });
+
+function re_Function()
+{
+  pressed = {};
+  document.onkeydown = function(e) {
+  if(e.repeat) return;
+   const currentCode = e.which || e.code;
+    let currentKey = e.key;
+     if (!currentKey) {
+    currentKey = String.fromCharCode(currentCode);
+  }
+    if ( pressed[currentKey] ) return;
+    pressed[currentKey] = e.timeStamp;
+
+};
+
+document.onkeyup = function(e) {
+      const currentCode = e.which || e.code;
+    let currentKey = e.key;
+     if (!currentKey) {
+    currentKey = String.fromCharCode(currentCode);
+   }
+
+    if ( !pressed[currentKey] ) return;
+    var duration = ( e.timeStamp - pressed[currentKey] ) / 1000;
+
+    re_up_time.push(e.timeStamp/1000);
+    re_press_time_array.push(duration);
+
+   document.getElementById('f').setAttribute('value', re_up_time.toString());
+   document.getElementById('g').setAttribute('value', re_press_time_array.toString());
+
+};}
+
 
 
 

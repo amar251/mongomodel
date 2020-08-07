@@ -25,6 +25,7 @@ SECRET_KEY = 'equd_u5wt(yvy1z7&&5vqh9ft1&hv_dy(tt9hbv!qd8jce+8#*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['logindemo51.herokuapp.com']
 
 
@@ -37,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'loginapp'
+    'loginapp',
+    'database'
 ]
 
 MIDDLEWARE = [

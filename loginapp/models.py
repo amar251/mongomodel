@@ -18,6 +18,11 @@ class key_table(MyModel):
 
     def __str__(self):
         return str(self.email)
+class re_password_key_table(MyModel):
+    re_key=models.IntegerField()
+
+    def __str__(self):
+        return str(self.email)
 
 
 
